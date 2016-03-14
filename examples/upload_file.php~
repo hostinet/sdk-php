@@ -1,0 +1,59 @@
+<?php
+
+require_once ( "../src/hostinetapi.php");  
+
+$api = new HostinetApi('API_KEY','API_SECRET');
+
+$response = $api->upload('/absolute/path/to/file.txt');
+
+print_r($response);
+
+
+die;
+$response = $api->post("tool/csrdecode", array(
+    'csr' => '-----BEGIN CERTIFICATE REQUEST-----
+MIIDHDCCAgQCAQAwgboxIzAhBgkqhkiG9w0BCQEWFGFkbWluQGZsb3JlbnRpbm8u
+Y29tMSMwIQYDVQQLDBpGbG9yZW50aW5vIENvbGVjY2lvbiwgUy5MLjEbMBkGA1UE
+AwwSd3d3LmZsb3JlbnRpbm8uY29tMQ4wDAYDVQQIDAVTUEFJTjEjMCEGA1UECgwa
+RmxvcmVudGlubyBDb2xlY2Npb24sIFMuTC4xDzANBgNVBAcMBkxhbMOtbjELMAkG
+A1UEBhMCRVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCwG9Bt+YNV
+t9WPzUrQ/5FPRFgD+Jk/ae3NGPMS2ho8f7YIbD3zyEC3kfBZhIBdAkFT2kYh4iNz
+eCoQ8nyJCA8bIgMeFljdI9hK72W0huqGX7z9NqHZZZN0GUNepjHxjH5pED9+Junv
+AFt1jeA87rADzuOOFyNeP5zL2/XRiS07gOcVxE0ErxQKcqgd4B/uvjr6RCZX2QTv
+CDSIpojyA4DVrNIm9N9obzc7KLmZ4L84EzZn7547NkEzzoRgy+yoiI6bk4C1hoa1
+3pn/Vpef2CBWotBEa04MONsNAsRB0VYpoRiadiU2vxT1krqFFx+MG/Mr2Eqtk7YP
+Y2X94vJsdoNTAgMBAAGgHDAaBgkqhkiG9w0BCQcxDQwLaG9zdGluZXQxMjMwDQYJ
+KoZIhvcNAQEFBQADggEBADD4fLk16pzh1YMQaUUbJKjOGq/9XpzwdG/HvwkNAWXb
+vU76fpIhkoFdCXB9goBEVzZ/mG3HxgVlH4KkJ3DWv8Igg4bqAkc1maxBAi3pUwe9
+ux7pPzqxe8UaehTCFHUfGYHNEKNoVraNzNLPOVm1QZC9DX8ypq25NNlsKup1qCYL
+C12CeyhQkF7O7RtbDCCe3iTG0uvyMUJ3YsWoO0IUVwJHNb5UzyPu07WKQQ7yW85k
+e3upF2PRngxKU2wrgidhmwkokQlvWmgQ2aWK9TNsLB31xWM9YIQz0t8Edu+6RuQW
+zCkZfZQ/60aIA0f7u8s2ZxlNkPtxuMdBltjZEKECOTM=
+-----END CERTIFICATE REQUEST-----'
+));
+var_dump($response);
+die;
+$response = $api->post("profile", array(
+    'email' => 'new@email.com'
+));
+var_dump($response);
+die;
+$response = $api->get("profile");
+var_dump($response);
+die;
+$response = $api->post("tool/idnconverter", array(
+    'domain' => 'sátiro.es'
+));
+var_dump($response);
+die;
+$response = $api->get("tool/hello");
+var_dump($response);
+die;
+for($i=0; $i<mt_rand(1, 5); $i++) {
+    $response = $api->post("sms", array(
+        'from' => '12' . $i,
+        'to' => '12' . $i,
+        'text' => '12' . $i,
+    ));
+    var_dump($response);
+}
