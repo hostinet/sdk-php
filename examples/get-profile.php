@@ -13,4 +13,4 @@ $api = new HostinetApi(API_KEY,API_SECRET);
 
 $response = $api->get("profile");
 
-print_t($response);
+print_r($response);
