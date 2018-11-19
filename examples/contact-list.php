@@ -11,12 +11,12 @@ define('API_SECRET', '');
 
 $api = new HostinetApi(API_KEY,API_SECRET);
 
-$response = $api->post("contact/list");
+$response = $api->get("contact/list");
 
 print_r($response);
 
 
-$response = $api->post("contact/list", array(
+$response = $api->get("contact/list", array(
     'page' => 2,
     'limit' => 25
 ));
