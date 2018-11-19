@@ -9,11 +9,11 @@ class HostinetApiClient {
     private $host = 'https://www.hostinet.com/api/';
     private $useragent = 'hostinet-api v0.3-beta';
     private $http_info = array();
-    private $timeout = 5;
-    private $connecttimeout = 5;
+    private $timeout = 30;
+    private $connecttimeout = 30;
     private $ssl_verifypeer = false;
     private $format = 'json';
-    private $version = 1.0;
+    private $version = 1.1;
     private $token = null;
     /**
      * Constructor
@@ -24,7 +24,7 @@ class HostinetApiClient {
             $config = array();
             $config['appKey'] = func_get_arg(0);
             $config['appSecret'] = func_get_arg(1);
-        }            
+        }
         if($config) {
             $this->appKey = $config['appKey'];
             $this->appSecret = $config['appSecret'];
@@ -37,7 +37,7 @@ class HostinetApiClient {
      * @param array $params
      * @return object
      */
-    public function request($method, $path, $params = ''){        
+    public function request($method, $path, $params = ''){
         $path = parse_url($path, PHP_URL_PATH);
         $args = parse_url($path, PHP_URL_QUERY);
         $p = explode("/", trim($path, '/'));
@@ -99,8 +99,8 @@ class HostinetApiClient {
      * @param array $params
      * @return string response
      */
-    private function connect($method, $path, $params){     
-        $url = $this->host . $path;   
+    private function connect($method, $path, $params){
+        $url = $this->host . $path;
         $time = time();
         $headers = array();
         if($this->token) {
@@ -117,7 +117,7 @@ class HostinetApiClient {
         $useragent .= " PlatformVersion/{$this->version};";
         if($so)  $useragent .= " OS/{$so};";
         if($sov) $useragent .= " OSV/{$sov};";
-        
+
         $ci = curl_init();
         /* Curl settings */
         curl_setopt($ci, CURLOPT_USERAGENT, $useragent);
@@ -130,11 +130,11 @@ class HostinetApiClient {
         curl_setopt($ci, CURLOPT_VERBOSE, FALSE);
         curl_setopt($ci, CURLOPT_FOLLOWLOCATION, TRUE);
 
-        
+
         if($method != 'POST' && $params) {
             $params = self::build_http_query($params);
         }
-        
+
         switch ($method) {
           case 'GET':
                 if (!empty($params)) {
@@ -208,4 +208,3 @@ class HostinetApiClient {
         return implode('&', $pairs);
     }
 }
-
